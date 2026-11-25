@@ -1,0 +1,31 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1>Users &amp; approvals</h1></div>
+<p class="text-muted small">Self-registration for faculty, staff and students (with the approval workflow) arrives in Phase 3. For now, administrators create staff accounts here.</p>
+<div class="table-a table-responsive mb-4"><table class="table align-middle">
+  <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Department</th><th>Status</th><th>Change status</th></tr></thead>
+  <tbody>
+  <% users.forEach(function (u) { %>
+    <tr><td><%= u.full_name %></td><td class="small"><%= u.email %></td><td><%= u.role_name || '—' %></td><td class="small"><%= u.department_name || '' %></td>
+      <td><span class="status status-<%= u.status %>"><%= u.status %></span></td>
+      <td><% if (u.id !== currentUser.id) { %><form method="post" action="/admin/users/<%= u.id %>/status" class="d-flex gap-1">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <select name="status" class="form-select form-select-sm" aria-label="New status for <%= u.full_name %>"><% STATUSES.forEach(function (s) { %><option value="<%= s %>" <%= u.status === s ? 'selected' : '' %>><%= s %></option><% }) %></select>
+        <button class="btn btn-sm btn-outline-secondary">Apply</button></form><% } else { %><span class="small text-muted">You</span><% } %></td></tr>
+  <% }) %>
+  </tbody>
+</table></div>
+<% if (can('users.manage')) { %>
+<form method="post" action="/admin/users" class="card-a">
+  <h2 class="h5">Create a staff account</h2>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="row g-3">
+    <div class="col-md-4"><label class="form-label" for="full_name">Full name</label><input class="form-control" id="full_name" name="full_name" required></div>
+    <div class="col-md-4"><label class="form-label" for="uemail">Email</label><input class="form-control" id="uemail" name="email" type="email" required></div>
+    <div class="col-md-4"><label class="form-label" for="upw">Temporary password (10+ characters)</label><input class="form-control" id="upw" name="password" type="text" minlength="10" required autocomplete="off"></div>
+    <div class="col-md-6"><label class="form-label" for="role_id">Role</label><select class="form-select" id="role_id" name="role_id"><% roles.forEach(function (r) { %><option value="<%= r.id %>"><%= r.name %></option><% }) %></select></div>
+    <div class="col-md-6"><label class="form-label" for="udept">Department (for HOD / coordinator)</label><select class="form-select" id="udept" name="department_id"><option value="">—</option><% departments.forEach(function (d) { %><option value="<%= d.id %>"><%= d.name %></option><% }) %></select></div>
+  </div>
+  <button class="btn btn-maroon mt-3">Create account</button>
+</form>
+<% } %>
+<%- include('partials/bottom') %>

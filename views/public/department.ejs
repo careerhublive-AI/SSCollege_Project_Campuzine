@@ -1,0 +1,26 @@
+<%- include('../partials/head', { description: department.description }) %>
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { crumbs: [{ title: 'Departments', url: '/departments' }], lead: department.description }) %>
+<section class="section"><div class="container"><div class="row g-4 g-lg-5">
+  <div class="col-lg-8">
+    <h2 class="h4">Programmes</h2>
+    <% if (!programmes.length) { %><p>No programmes listed yet.</p><% } %>
+    <div class="list-group mb-4">
+      <% programmes.forEach(function (p) { %>
+        <div class="list-group-item"><strong><%= p.name %></strong> <span class="text-muted">· <%= p.level %><%= p.duration ? ' · ' + p.duration : '' %><%= p.intake ? ' · Intake ' + p.intake : '' %></span><% if (p.description) { %><div class="small mt-1"><%= p.description %></div><% } %></div>
+      <% }) %>
+    </div>
+    <h2 class="h4">Department news and activities</h2>
+    <% if (!news.length) { %><p>No department news yet.</p><% } %>
+    <ul><% news.forEach(function (n) { %><li><a href="/news/<%= n.slug %>"><%= n.title %></a></li><% }) %></ul>
+  </div>
+  <div class="col-lg-4">
+    <div class="card-plain">
+      <h2 class="h5">Contact</h2>
+      <p class="mb-1"><strong>Head of Department:</strong> <%= department.hod_name || 'To be added' %></p>
+      <% if (department.email) { %><p class="mb-1">Email: <%= department.email %></p><% } %>
+      <% if (department.phone) { %><p class="mb-0">Phone: <%= department.phone %></p><% } %>
+    </div>
+  </div>
+</div></div></section>
+<%- include('../partials/footer') %>

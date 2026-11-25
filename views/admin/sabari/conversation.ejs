@@ -1,0 +1,10 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1><%= title %></h1><a class="btn btn-outline-secondary" href="/admin/sabari/conversations">Back</a></div>
+<div class="card-a">
+  <% messages.forEach(function (m) { %>
+    <div class="chat-line chat-<%= m.sender %>" lang="<%= m.language || 'en' %>"><%= m.message %>
+      <% if (m.sender === 'bot') { %><div class="small <%= m.matched ? 'text-success' : 'text-danger' %> mt-1"><%= m.matched ? 'Answered from FAQ #' + m.faq_id : 'No verified answer' %><%= m.score != null ? ' · score ' + m.score : '' %><%= m.feedback ? ' · ' + m.feedback.replace('_', ' ') : '' %></div><% } %>
+    </div>
+  <% }) %>
+</div>
+<%- include('../partials/bottom') %>

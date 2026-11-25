@@ -1,0 +1,8 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1>Chat history</h1><span class="small text-muted">Latest 100 · old chats are removed automatically after the retention period in Settings</span></div>
+<div class="table-a table-responsive"><table class="table align-middle">
+  <thead><tr><th>#</th><th>Started (UTC)</th><th>Last activity (UTC)</th><th>Language</th><th>Messages</th></tr></thead>
+  <tbody><% conversations.forEach(function (c) { %><tr><td><a href="/admin/sabari/conversations/<%= c.id %>">#<%= c.id %></a></td><td class="small"><%= c.created_at %></td><td class="small"><%= c.last_activity_at %></td><td><%= c.language === 'ml' ? 'Malayalam' : 'English' %></td><td><%= c.message_count %></td></tr><% }) %>
+  <% if (!conversations.length) { %><tr><td colspan="5" class="text-muted">No conversations yet.</td></tr><% } %></tbody>
+</table></div>
+<%- include('../partials/bottom') %>

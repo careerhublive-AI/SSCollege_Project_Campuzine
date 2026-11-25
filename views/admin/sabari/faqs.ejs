@@ -1,0 +1,25 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1>FAQ management</h1><a class="btn btn-maroon" href="/admin/sabari/faqs/new"><i class="bi bi-plus-lg"></i> New FAQ</a></div>
+<form class="mb-3 d-flex gap-2 align-items-center" method="get"><label for="cat" class="small text-muted">Topic</label>
+  <select id="cat" name="category" class="form-select form-select-sm w-auto"><option value="">All topics</option><% categories.forEach(function (c) { %><option value="<%= c.id %>" <%= categoryId === c.id ? 'selected' : '' %>><%= c.name %></option><% }) %></select>
+  <button class="btn btn-sm btn-outline-secondary">Filter</button></form>
+<div class="table-a table-responsive"><table class="table align-middle">
+  <thead><tr><th>Question (English / Malayalam)</th><th>Topic</th><th>Used</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  <% faqs.forEach(function (f) { %>
+    <tr>
+      <td><a href="/admin/sabari/faqs/<%= f.id %>/edit"><%= f.q_en || '(no English version)' %></a><div class="small text-muted" lang="ml"><%= f.q_ml || '(no Malayalam version)' %></div></td>
+      <td class="small"><%= f.category || '—' %></td><td><%= f.hit_count %></td>
+      <td><span class="status status-<%= f.status %>"><%= f.status %></span></td>
+      <td class="text-end text-nowrap">
+        <form method="post" action="/admin/sabari/faqs/<%= f.id %>/status" class="d-inline"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="hidden" name="status" value="<%= f.status === 'published' ? 'unpublished' : 'published' %>">
+          <button class="btn btn-sm btn-outline-secondary"><%= f.status === 'published' ? 'Unpublish' : 'Publish' %></button></form>
+        <form method="post" action="/admin/sabari/faqs/<%= f.id %>/delete" class="d-inline" data-confirm="Delete this FAQ in both languages?"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="btn btn-sm btn-outline-danger" aria-label="Delete"><i class="bi bi-trash"></i></button></form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table></div>
+<%- include('../partials/bottom') %>

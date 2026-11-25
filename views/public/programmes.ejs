@@ -1,0 +1,16 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { lead: 'All programmes offered by the college.' }) %>
+<section class="section"><div class="container">
+  <div class="table-responsive"><table class="table align-middle">
+    <thead><tr><th>Programme</th><th>Level</th><th>Department</th><th>Duration</th><th>Intake</th></tr></thead>
+    <tbody>
+      <% programmes.forEach(function (p) { %>
+        <tr><td><strong><%= p.name %></strong></td><td><%= p.level %></td>
+          <td><% if (p.department_slug) { %><a href="/departments/<%= p.department_slug %>"><%= p.department_name %></a><% } %></td>
+          <td><%= p.duration || '' %></td><td><%= p.intake || '' %></td></tr>
+      <% }) %>
+    </tbody>
+  </table></div>
+</div></section>
+<%- include('../partials/footer') %>

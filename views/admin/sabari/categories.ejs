@@ -1,0 +1,30 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1>Topics &amp; quick replies</h1></div>
+<p class="text-muted small">Topics are the quick-action buttons visitors see first. Quick replies are the questions listed under each topic; choose them in each FAQ with “Show this question as a quick-reply button”.</p>
+<% categories.forEach(function (c) { const qr = quickReplies.filter(function (q) { return q.category_id === c.id; }); %>
+  <form method="post" action="/admin/sabari/categories/<%= c.id %>" class="card-a mb-3">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="row g-2 align-items-end">
+      <div class="col-2 col-md-1"><label class="form-label small" for="icon<%= c.id %>">Icon</label><input class="form-control" id="icon<%= c.id %>" name="icon" value="<%= c.icon || '' %>"></div>
+      <div class="col-10 col-md-3"><label class="form-label small" for="n<%= c.id %>">English name</label><input class="form-control" id="n<%= c.id %>" name="name" value="<%= c.name %>" required></div>
+      <div class="col-md-3"><label class="form-label small" for="nm<%= c.id %>">Malayalam name</label><input class="form-control" id="nm<%= c.id %>" name="name_ml" lang="ml" value="<%= c.name_ml || '' %>"></div>
+      <div class="col-md-2"><label class="form-label small" for="u<%= c.id %>">Page link</label><input class="form-control" id="u<%= c.id %>" name="page_url" value="<%= c.page_url || '' %>"></div>
+      <div class="col-4 col-md-1"><label class="form-label small" for="o<%= c.id %>">Order</label><input class="form-control" id="o<%= c.id %>" name="sort_order" type="number" value="<%= c.sort_order %>"></div>
+      <div class="col-5 col-md-1"><label class="form-label small" for="s<%= c.id %>">Status</label><select class="form-select" id="s<%= c.id %>" name="status"><option value="published">On</option><option value="unpublished" <%= c.status === 'unpublished' ? 'selected' : '' %>>Off</option></select></div>
+      <div class="col-3 col-md-1"><button class="btn btn-outline-secondary w-100">Save</button></div>
+    </div>
+    <div class="small text-muted mt-2"><a href="/admin/sabari/faqs?category=<%= c.id %>"><%= c.faq_count %> FAQs</a> · Quick replies: <%= qr.filter(function (q) { return q.language === 'en'; }).map(function (q) { return q.label; }).join(' · ') || 'none' %></div>
+  </form>
+<% }) %>
+<form method="post" action="/admin/sabari/categories" class="card-a">
+  <h2 class="h6">Add a topic</h2>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="row g-2 align-items-end">
+    <div class="col-2 col-md-1"><label class="form-label small" for="nicon">Icon</label><input class="form-control" id="nicon" name="icon"></div>
+    <div class="col-10 col-md-4"><label class="form-label small" for="nname">English name</label><input class="form-control" id="nname" name="name" required></div>
+    <div class="col-md-4"><label class="form-label small" for="nml">Malayalam name</label><input class="form-control" id="nml" name="name_ml" lang="ml"></div>
+    <div class="col-md-2"><label class="form-label small" for="nurl">Page link</label><input class="form-control" id="nurl" name="page_url"></div>
+    <div class="col-md-1"><input type="hidden" name="sort_order" value="99"><button class="btn btn-maroon w-100">Add</button></div>
+  </div>
+</form>
+<%- include('../partials/bottom') %>

@@ -1,0 +1,38 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1>Sabari management</h1><a class="btn btn-maroon" href="/admin/sabari/faqs/new"><i class="bi bi-plus-lg"></i> New FAQ</a></div>
+<div class="row g-3 mb-4">
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/sabari/conversations"><div class="n"><%= stats.conversations %></div><div class="l">Total conversations</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/sabari/unanswered"><div class="n"><%= stats.unanswered %></div><div class="l">Unanswered questions</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/sabari/faqs"><div class="n"><%= stats.published %></div><div class="l">Published FAQs</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/sabari/settings"><div class="n"><%= stats.languages %></div><div class="l">Supported languages</div></a></div>
+</div>
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card-a h-100">
+      <h2 class="h6 text-uppercase text-muted">Answer rate</h2>
+      <% const total = stats.matched + stats.unmatched; %>
+      <p class="mb-1"><strong><%= total ? Math.round(stats.matched * 100 / total) : 0 %>%</strong> of questions answered (<%= stats.matched %> answered, <%= stats.unmatched %> not found)</p>
+      <p class="mb-3 small text-muted">Feedback: <%= stats.helpful %> helpful · <%= stats.notHelpful %> not helpful</p>
+      <h2 class="h6 text-uppercase text-muted">Popular questions</h2>
+      <% if (!popular.length) { %><p class="small text-muted">No questions answered yet.</p><% } %>
+      <ol class="mb-0"><% popular.forEach(function (p) { %><li><a href="/admin/sabari/faqs/<%= p.id %>/edit"><%= p.question %></a> <span class="text-muted small">(<%= p.hit_count %>)</span></li><% }) %></ol>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card-a mb-4">
+      <h2 class="h6 text-uppercase text-muted">Try a question</h2>
+      <form method="post" action="/admin/sabari/test" class="d-flex gap-2">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input class="form-control" name="question" placeholder="e.g. What courses are available? / കോളേജ് എവിടെയാണ്?" aria-label="Test question" required>
+        <button class="btn btn-outline-secondary">Test</button>
+      </form>
+      <p class="small text-muted mt-2 mb-0">Shows which FAQ Sabari would choose and why. Nothing is saved.</p>
+    </div>
+    <div class="card-a">
+      <h2 class="h6 text-uppercase text-muted">Waiting for review</h2>
+      <% if (!recentUnanswered.length) { %><p class="small text-muted mb-0">Nothing waiting.</p><% } %>
+      <ul class="list-unstyled mb-0"><% recentUnanswered.forEach(function (u) { %><li class="py-1 border-bottom" lang="<%= u.language %>"><%= u.question %></li><% }) %></ul>
+    </div>
+  </div>
+</div>
+<%- include('../partials/bottom') %>

@@ -1,0 +1,12 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1>College information</h1></div>
+<form method="post" class="card-a col-lg-9">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <p class="text-muted small">Used across the website, the footer and Sabari's contact answers.</p>
+  <% fields.forEach(function (f) { %>
+    <div class="mb-3"><label class="form-label" for="<%= f[0] %>"><%= f[1] %></label>
+      <input class="form-control" id="<%= f[0] %>" name="<%= f[0] %>" value="<%= values[f[0]] || '' %>" <%= f[0].endsWith('_ml') ? 'lang=ml' : '' %>></div>
+  <% }) %>
+  <button class="btn btn-maroon">Save</button>
+</form>
+<%- include('partials/bottom') %>

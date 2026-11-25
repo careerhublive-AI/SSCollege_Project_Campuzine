@@ -1,0 +1,13 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1>Homepage banner</h1></div>
+<form method="post" class="card-a col-lg-8">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="mb-3"><label class="form-label" for="title">Headline</label><input class="form-control" id="title" name="title" maxlength="200" value="<%= banner.title || '' %>"></div>
+  <div class="mb-3"><label class="form-label" for="subtitle">Sub-heading</label><input class="form-control" id="subtitle" name="subtitle" maxlength="300" value="<%= banner.subtitle || '' %>"></div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6"><label class="form-label" for="link_url">Button link</label><input class="form-control" id="link_url" name="link_url" value="<%= banner.link_url || '' %>" placeholder="/about"></div>
+    <div class="col-md-6"><label class="form-label" for="link_label">Button text</label><input class="form-control" id="link_label" name="link_label" maxlength="60" value="<%= banner.link_label || '' %>"></div>
+  </div>
+  <button class="btn btn-maroon">Save banner</button>
+</form>
+<%- include('partials/bottom') %>

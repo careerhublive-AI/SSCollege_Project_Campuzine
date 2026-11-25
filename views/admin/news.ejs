@@ -1,0 +1,13 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1>News, events &amp; notices</h1><a class="btn btn-maroon" href="/admin/news/new"><i class="bi bi-plus-lg"></i> New item</a></div>
+<div class="table-a table-responsive"><table class="table align-middle">
+  <thead><tr><th>Title</th><th>Type</th><th>Event date</th><th>Featured</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  <% items.forEach(function (n) { %>
+    <tr><td><a href="/admin/news/<%= n.id %>/edit"><%= n.title %></a></td><td class="text-capitalize"><%= n.type %></td><td class="small"><%= n.event_date || '' %></td>
+      <td><%= n.is_featured ? 'Yes' : '' %></td><td><span class="status status-<%= n.status %>"><%= n.status %></span></td>
+      <td class="text-end"><form method="post" action="/admin/news/<%= n.id %>/delete" data-confirm="Delete “<%= n.title %>”?" class="d-inline"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="btn btn-sm btn-outline-danger" aria-label="Delete"><i class="bi bi-trash"></i></button></form></td></tr>
+  <% }) %>
+  </tbody>
+</table></div>
+<%- include('partials/bottom') %>

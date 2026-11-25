@@ -1,0 +1,14 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1>Departments &amp; programmes</h1>
+  <div class="d-flex gap-2"><a class="btn btn-maroon" href="/admin/departments/new"><i class="bi bi-plus-lg"></i> Department</a><a class="btn btn-outline-secondary" href="/admin/programmes/new"><i class="bi bi-plus-lg"></i> Programme</a></div></div>
+<div class="table-a table-responsive"><table class="table align-middle">
+  <thead><tr><th>Department</th><th>Head of department</th><th>Programmes</th><th>Status</th></tr></thead>
+  <tbody>
+  <% departments.forEach(function (d) { %>
+    <tr><td><a href="/admin/departments/<%= d.id %>/edit"><%= d.name %></a></td><td><%= d.hod_name %></td>
+      <td><% programmes.filter(function (p) { return p.department_id === d.id; }).forEach(function (p) { %><a class="badge text-bg-light text-decoration-none me-1" href="/admin/programmes/<%= p.id %>/edit"><%= p.name %></a><% }) %></td>
+      <td><span class="status status-<%= d.status %>"><%= d.status %></span></td></tr>
+  <% }) %>
+  </tbody>
+</table></div>
+<%- include('partials/bottom') %>

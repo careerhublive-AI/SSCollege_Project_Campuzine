@@ -1,0 +1,9 @@
+<%- include('../partials/head', { description: item.summary }) %>
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { crumbs: [{ title: 'News & Events', url: '/news' }], lead: item.summary }) %>
+<section class="section"><div class="container">
+  <p class="text-muted"><span class="badge badge-type type-<%= item.type %>"><%= item.type %></span>
+    <% if (item.event_date) { %> · Event date: <%= item.event_date %><% } %></p>
+  <div class="cms-body"><%- item.body %></div>
+</div></section>
+<%- include('../partials/footer') %>

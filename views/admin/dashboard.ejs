@@ -1,0 +1,19 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1>Welcome, <%= currentUser.full_name %></h1></div>
+<div class="row g-3 mb-4">
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/pages"><div class="n"><%= stats.pages %></div><div class="l">Pages</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/news"><div class="n"><%= stats.news %></div><div class="l">News, events &amp; notices</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/sabari/unanswered"><div class="n"><%= stats.sabariPending %></div><div class="l">Sabari questions to review</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/users"><div class="n"><%= stats.pendingUsers %></div><div class="l">Accounts awaiting approval</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/departments"><div class="n"><%= stats.departments %></div><div class="l">Departments</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/sabari/faqs"><div class="n"><%= stats.sabariFaqs %></div><div class="l">Published Sabari FAQs</div></a></div>
+  <div class="col-6 col-xl-3"><a class="stat-a" href="/admin/sabari/conversations"><div class="n"><%= stats.conversations %></div><div class="l">Sabari conversations</div></a></div>
+</div>
+<% if (can('audit.view')) { %>
+<h2 class="h6 text-uppercase text-muted">Recent activity</h2>
+<div class="table-a"><table class="table table-sm align-middle">
+  <thead><tr><th>When (UTC)</th><th>Who</th><th>Action</th><th>Item</th></tr></thead>
+  <tbody><% recent.forEach(function (a) { %><tr><td class="small"><%= a.created_at %></td><td><%= a.full_name || '—' %></td><td><%= a.action %></td><td><%= a.entity %> <%= a.entity_id || '' %></td></tr><% }) %></tbody>
+</table></div>
+<% } %>
+<%- include('partials/bottom') %>

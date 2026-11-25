@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title><%= title %> | Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<% if (currentUser) { %>
+<nav class="navbar admin-topbar px-3">
+  <button class="btn btn-sm btn-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminNav" aria-controls="adminNav" aria-label="Open menu"><i class="bi bi-list"></i></button>
+  <a class="navbar-brand text-white fw-semibold" href="/admin">Sree Sabareesa College · Admin</a>
+  <div class="d-flex align-items-center gap-2 ms-auto">
+    <a class="btn btn-sm btn-outline-light" href="/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> <span class="d-none d-sm-inline">View site</span></a>
+    <a class="text-white small d-none d-md-inline" href="/admin/account"><%= currentUser.full_name %> · <%= currentUser.role_name %></a>
+    <form method="post" action="/admin/logout" class="m-0"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="btn btn-sm btn-light">Sign out</button></form>
+  </div>
+</nav>
+<div class="admin-wrap">
+  <aside class="offcanvas-lg offcanvas-start admin-side" tabindex="-1" id="adminNav" aria-label="Admin menu">
+    <div class="offcanvas-header d-lg-none"><span class="fw-semibold">Menu</span><button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#adminNav" aria-label="Close"></button></div>
+    <div class="offcanvas-body d-block">
+      <% const link = function (href, icon, label, exact) { const active = exact ? path === href.replace('/admin', '') || path === href.replace('/admin', '') + '/' : ('/admin' + path).startsWith(href); return '<a class="side-link' + (active ? ' active' : '') + '" href="' + href + '"><i class="bi bi-' + icon + '"></i> ' + label + '</a>'; }; %>
+      <%- link('/admin', 'speedometer2', 'Dashboard', true) %>
+      <% if (can('cms.pages') || can('cms.news') || can('cms.banners')) { %><div class="side-h">Website</div><% } %>
+      <% if (can('cms.pages')) { %><%- link('/admin/pages', 'file-earmark-text', 'Pages') %><% } %>
+      <% if (can('cms.news')) { %><%- link('/admin/news', 'megaphone', 'News, events & notices') %><% } %>
+      <% if (can('cms.banners')) { %><%- link('/admin/banners', 'image', 'Homepage banner') %><% } %>
+      <% if (can('institution.departments') || can('settings.manage')) { %><div class="side-h">Institution</div><% } %>
+      <% if (can('institution.departments')) { %><%- link('/admin/departments', 'bank', 'Departments & programmes') %><% } %>
+      <% if (can('settings.manage')) { %><%- link('/admin/settings', 'building', 'College information') %><% } %>
+      <% if (can('sabari.manage')) { %>
+        <div class="side-h">Sabari</div>
+        <%- link('/admin/sabari', 'chat-dots', 'Sabari dashboard', true) %>
+        <%- link('/admin/sabari/faqs', 'question-circle', 'FAQ management') %>
+        <%- link('/admin/sabari/categories', 'grid', 'Topics & quick replies') %>
+        <%- link('/admin/sabari/unanswered', 'inbox', 'Unanswered questions') %>
+        <%- link('/admin/sabari/conversations', 'clock-history', 'Chat history') %>
+        <%- link('/admin/sabari/settings', 'translate', 'Languages & settings') %>
+      <% } %>
+      <% if (can('users.manage') || can('users.approve') || can('audit.view')) { %><div class="side-h">Administration</div><% } %>
+      <% if (can('users.manage') || can('users.approve')) { %><%- link('/admin/users', 'people', 'Users & approvals') %><% } %>
+      <% if (can('audit.view')) { %><%- link('/admin/audit', 'shield-check', 'Audit log') %><% } %>
+      <div class="side-h">Coming in later phases</div>
+      <span class="side-link disabled"><i class="bi bi-person-badge"></i> Faculty portal</span>
+      <span class="side-link disabled"><i class="bi bi-mortarboard"></i> Student portal</span>
+      <span class="side-link disabled"><i class="bi bi-clipboard-data"></i> IQAC &amp; NAAC</span>
+    </div>
+  </aside>
+  <main class="admin-main">
+<% } else { %>
+<main class="admin-main admin-main-full">
+<% } %>
+    <% if (flash) { %><div class="alert alert-<%= flash.type %>" role="status"><%= flash.text %></div><% } %>

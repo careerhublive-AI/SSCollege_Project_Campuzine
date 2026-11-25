@@ -1,0 +1,19 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1><%= title %></h1><a class="btn btn-outline-secondary" href="/admin/departments">Back</a></div>
+<% if (error) { %><div class="alert alert-danger"><%= error %></div><% } %>
+<form method="post" action="/admin/programmes<%= p.id ? '/' + p.id : '' %>" class="card-a">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="row g-3">
+    <div class="col-md-6"><label class="form-label" for="name">Programme name</label><input class="form-control" id="name" name="name" required value="<%= p.name || '' %>"></div>
+    <div class="col-md-6"><label class="form-label" for="department_id">Department</label><select class="form-select" id="department_id" name="department_id"><option value="">—</option>
+      <% departments.forEach(function (d) { %><option value="<%= d.id %>" <%= p.department_id == d.id ? 'selected' : '' %>><%= d.name %></option><% }) %></select></div>
+    <div class="col-md-3"><label class="form-label" for="level">Level</label><select class="form-select" id="level" name="level"><% ['UG', 'PG', 'Diploma', 'Certificate', 'PhD'].forEach(function (l) { %><option <%= p.level === l ? 'selected' : '' %>><%= l %></option><% }) %></select></div>
+    <div class="col-md-3"><label class="form-label" for="duration">Duration</label><input class="form-control" id="duration" name="duration" value="<%= p.duration || '' %>"></div>
+    <div class="col-md-3"><label class="form-label" for="intake">Intake (seats)</label><input class="form-control" id="intake" name="intake" type="number" min="0" value="<%= p.intake || '' %>"></div>
+    <div class="col-md-3"><label class="form-label" for="status">Status</label><select class="form-select" id="status" name="status"><option value="active">Active</option><option value="archived" <%= p.status === 'archived' ? 'selected' : '' %>>Archived</option></select></div>
+    <div class="col-12"><label class="form-label" for="description">Description, eligibility</label><textarea class="form-control" id="description" name="description" rows="4"><%= p.description || '' %></textarea></div>
+    <div class="col-md-3"><label class="form-label" for="sort_order">Order</label><input class="form-control" id="sort_order" name="sort_order" type="number" value="<%= p.sort_order || 0 %>"></div>
+  </div>
+  <button class="btn btn-maroon mt-4">Save</button>
+</form>
+<%- include('partials/bottom') %>

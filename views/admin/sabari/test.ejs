@@ -1,0 +1,13 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1>Test Sabari</h1><a class="btn btn-outline-secondary" href="/admin/sabari">Back</a></div>
+<form method="post" action="/admin/sabari/test" class="d-flex gap-2 mb-3">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <input class="form-control" name="question" value="<%= question %>" aria-label="Test question" required><button class="btn btn-maroon">Test</button>
+</form>
+<div class="alert <%= matched ? 'alert-success' : 'alert-warning' %>"><%= matched ? 'Sabari would answer with the first FAQ below.' : 'Sabari would show the “no verified answer” message, with Contact College and Submit Your Question.' %> Threshold: <%= threshold %>.</div>
+<div class="table-a"><table class="table align-middle">
+  <thead><tr><th>FAQ</th><th>Score</th><th>Matched keywords</th></tr></thead>
+  <tbody><% top.forEach(function (t) { %><tr><td><a href="/admin/sabari/faqs/<%= t.id %>/edit"><%= t.question %></a></td><td><%= t.score %></td><td class="small"><%= t.hit.join(', ') %></td></tr><% }) %>
+  <% if (!top.length) { %><tr><td colspan="3" class="text-muted">No FAQ matched any word in this question.</td></tr><% } %></tbody>
+</table></div>
+<%- include('../partials/bottom') %>

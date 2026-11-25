@@ -1,0 +1,36 @@
+:root { --maroon: #6b1d2a; --maroon-dark: #4a121c; --gold: #d39b2a; }
+body { font-family: "Inter", "Noto Sans Malayalam", system-ui, sans-serif; background: #f5f3f0; }
+[lang="ml"] { font-family: "Noto Sans Malayalam", "Inter", sans-serif; }
+.admin-topbar { background: var(--maroon); position: sticky; top: 0; z-index: 1030; }
+.admin-wrap { display: flex; min-height: calc(100vh - 56px); }
+.admin-side { width: 260px; background: #fff; border-right: 1px solid #e5e0da; }
+@media (min-width: 992px) { .admin-side { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; padding: 1rem .75rem; } }
+.side-h { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: #8a8079; margin: 1rem .5rem .35rem; font-weight: 600; }
+.side-link { display: block; padding: .45rem .6rem; border-radius: 8px; color: #2b2522; text-decoration: none; font-size: .92rem; }
+.side-link:hover { background: #f6eee8; color: var(--maroon); }
+.side-link.active { background: var(--maroon); color: #fff; }
+.side-link.disabled { color: #b0a79f; }
+.side-link i { width: 1.2rem; display: inline-block; }
+.admin-main { flex: 1; min-width: 0; padding: 1.5rem; }
+.admin-main-full { max-width: 420px; margin: 8vh auto; }
+.page-title { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+.page-title h1 { font-size: 1.5rem; margin: 0; }
+.card-a { background: #fff; border: 1px solid #e5e0da; border-radius: 12px; padding: 1.25rem; }
+.stat-a { background: #fff; border: 1px solid #e5e0da; border-radius: 12px; padding: 1rem 1.1rem; text-decoration: none; color: inherit; display: block; height: 100%; }
+.stat-a .n { font-size: 1.8rem; font-weight: 600; color: var(--maroon); }
+.stat-a .l { color: #6b625b; font-size: .85rem; }
+a.stat-a:hover { border-color: var(--gold); }
+.btn-maroon { background: var(--maroon); color: #fff; border: 0; }
+.btn-maroon:hover { background: var(--maroon-dark); color: #fff; }
+.table-a { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e0da; }
+.table-a table { margin: 0; }
+.table-a th { font-size: .78rem; text-transform: uppercase; color: #6b625b; font-weight: 600; background: #faf8f6; }
+.status { font-size: .72rem; font-weight: 600; padding: .2rem .5rem; border-radius: 999px; text-transform: capitalize; white-space: nowrap; }
+.status-published, .status-approved, .status-active, .status-converted { background: #e3f4e8; color: #1e6b37; }
+.status-draft, .status-pending { background: #fff3d6; color: #7a5300; }
+.status-unpublished, .status-rejected, .status-suspended, .status-deactivated, .status-dismissed, .status-archived { background: #eee; color: #555; }
+textarea.code { font-family: ui-monospace, monospace; font-size: .85rem; }
+.chat-line { max-width: 80%; padding: .5rem .8rem; border-radius: 12px; margin-bottom: .5rem; }
+.chat-user { margin-left: auto; background: var(--maroon); color: #fff; }
+.chat-bot { background: #fff; border: 1px solid #e5e0da; }
+.form-text-ml { font-family: "Noto Sans Malayalam", sans-serif; }

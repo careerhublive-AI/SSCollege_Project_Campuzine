@@ -1,0 +1,25 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1>Unanswered questions</h1></div>
+<ul class="nav nav-pills mb-3">
+  <% [['pending', 'Pending review'], ['converted', 'Converted to FAQ'], ['dismissed', 'Dismissed']].forEach(function (s) { %>
+    <li class="nav-item"><a class="nav-link <%= status === s[0] ? 'active' : '' %>" href="?status=<%= s[0] %>"><%= s[1] %></a></li><% }) %>
+</ul>
+<p class="small text-muted">Workflow: review the question, prepare and verify an answer, then publish it as an FAQ so Sabari can answer it next time.</p>
+<% if (!items.length) { %><div class="card-a text-muted">Nothing here.</div><% } %>
+<% items.forEach(function (q) { %>
+  <div class="card-a mb-2">
+    <div class="d-flex flex-wrap justify-content-between gap-2">
+      <div><div class="fw-semibold" lang="<%= q.language %>"><%= q.question %></div>
+        <div class="small text-muted"><%= q.language === 'ml' ? 'Malayalam' : 'English' %> · <%= q.created_at %> UTC<% if (q.conv_id) { %> · <a href="/admin/sabari/conversations/<%= q.conv_id %>">conversation</a><% } %><% if (q.reviewer) { %> · reviewed by <%= q.reviewer %><% } %><% if (q.faq_id) { %> · <a href="/admin/sabari/faqs/<%= q.faq_id %>/edit">FAQ</a><% } %></div>
+        <% if (q.admin_note) { %><div class="small mt-1">Note: <%= q.admin_note %></div><% } %></div>
+      <% if (q.status === 'pending') { %>
+        <div class="d-flex gap-2 align-items-start">
+          <a class="btn btn-sm btn-maroon" href="/admin/sabari/faqs/new?from_unanswered=<%= q.id %>">Convert to FAQ</a>
+          <form method="post" action="/admin/sabari/unanswered/<%= q.id %>/dismiss" class="d-flex gap-1"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input class="form-control form-control-sm" name="admin_note" placeholder="Reason (optional)" aria-label="Reason for dismissing"><button class="btn btn-sm btn-outline-secondary">Dismiss</button></form>
+        </div>
+      <% } %>
+    </div>
+  </div>
+<% }) %>
+<%- include('../partials/bottom') %>

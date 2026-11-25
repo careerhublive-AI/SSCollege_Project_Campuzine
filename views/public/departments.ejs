@@ -1,0 +1,16 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { lead: 'Academic departments and the programmes they offer.' }) %>
+<section class="section"><div class="container"><div class="row g-4">
+  <% departments.forEach(function (d) { const progs = programmes.filter(function (p) { return p.department_id === d.id; }); %>
+    <div class="col-md-6">
+      <div class="card-plain h-100">
+        <h2 class="h4"><a href="/departments/<%= d.slug %>"><%= d.name %></a></h2>
+        <p><%= d.description %></p>
+        <p class="small mb-2"><strong>Head of Department:</strong> <%= d.hod_name || 'To be added' %></p>
+        <% if (progs.length) { %><div class="d-flex flex-wrap gap-2"><% progs.forEach(function (p) { %><span class="chip"><%= p.name %></span><% }) %></div><% } %>
+      </div>
+    </div>
+  <% }) %>
+</div></div></section>
+<%- include('../partials/footer') %>

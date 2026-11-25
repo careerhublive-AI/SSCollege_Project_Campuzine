@@ -1,0 +1,18 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1>Pages</h1><a class="btn btn-maroon" href="/admin/pages/new"><i class="bi bi-plus-lg"></i> New page</a></div>
+<div class="table-a table-responsive"><table class="table align-middle">
+  <thead><tr><th>Title</th><th>Address</th><th>Menu</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  <% pages.forEach(function (p) { const g = MENU_GROUPS.find(function (m) { return m[0] === (p.show_in_menu ? (p.menu_group || '') : 'none'); }); %>
+    <tr>
+      <td><a href="/admin/pages/<%= p.id %>/edit"><%= p.title %></a></td>
+      <td><a class="small" href="/<%= p.slug %>" target="_blank" rel="noopener">/<%= p.slug %></a></td>
+      <td class="small"><%= g ? g[1] : p.menu_group %></td>
+      <td><span class="status status-<%= p.status %>"><%= p.status %></span></td>
+      <td class="text-end"><form method="post" action="/admin/pages/<%= p.id %>/delete" data-confirm="Delete the page “<%= p.title %>”? This cannot be undone." class="d-inline">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="btn btn-sm btn-outline-danger" aria-label="Delete <%= p.title %>"><i class="bi bi-trash"></i></button></form></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table></div>
+<%- include('partials/bottom') %>

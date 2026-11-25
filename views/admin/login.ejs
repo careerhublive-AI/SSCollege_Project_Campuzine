@@ -1,0 +1,14 @@
+<%- include('partials/top') %>
+<div class="card-a p-4">
+  <h1 class="h4 mb-1">Staff sign in</h1>
+  <p class="text-muted small mb-4">Sree Sabareesa College administration</p>
+  <% if (error) { %><div class="alert alert-danger" role="alert"><%= error %></div><% } %>
+  <form method="post" action="/admin/login">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="mb-3"><label class="form-label" for="email">Email</label><input class="form-control" id="email" name="email" type="email" autocomplete="username" required value="<%= email %>"></div>
+    <div class="mb-3"><label class="form-label" for="password">Password</label><input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required></div>
+    <button class="btn btn-maroon w-100">Sign in</button>
+  </form>
+  <p class="small text-muted mt-3 mb-0"><a href="/">← Back to the website</a></p>
+</div>
+<%- include('partials/bottom') %>

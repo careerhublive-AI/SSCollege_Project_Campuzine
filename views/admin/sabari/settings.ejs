@@ -1,0 +1,13 @@
+<%- include('../partials/top') %>
+<div class="page-title"><h1>Languages &amp; settings</h1></div>
+<form method="post" class="card-a col-lg-9">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <p class="small text-muted">Sabari supports English and Malayalam. Every message below has a version for each language.</p>
+  <% fields.forEach(function (f) { %>
+    <div class="mb-3"><label class="form-label" for="<%= f[0] %>"><%= f[1] %></label>
+      <% if (f[2]) { %><textarea class="form-control" id="<%= f[0] %>" name="<%= f[0] %>" rows="3" <%= f[0].endsWith('_ml') ? 'lang=ml' : '' %>><%= values[f[0]] || '' %></textarea>
+      <% } else { %><input class="form-control" id="<%= f[0] %>" name="<%= f[0] %>" value="<%= values[f[0]] || '' %>"><% } %></div>
+  <% }) %>
+  <button class="btn btn-maroon">Save settings</button>
+</form>
+<%- include('../partials/bottom') %>

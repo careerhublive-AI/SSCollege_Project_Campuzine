@@ -1,0 +1,107 @@
+/* Sree Sabareesa College – temporary design system (to be replaced with the college's own design ideas). */
+:root {
+  --maroon: #6b1d2a;
+  --maroon-dark: #4a121c;
+  --gold: #d39b2a;
+  --gold-soft: #f3e2bd;
+  --cream: #faf6ef;
+  --ink: #1f1a17;
+  --muted: #6b625b;
+  --line: #e7ddd0;
+  --radius: 14px;
+  --font-body: "Inter", "Noto Sans Malayalam", system-ui, sans-serif;
+  --font-head: "Fraunces", Georgia, serif;
+}
+body { font-family: var(--font-body); color: var(--ink); background: var(--cream); }
+[lang="ml"], .text-ml { font-family: "Noto Sans Malayalam", var(--font-body); }
+h1, h2, h3, .h1, .h2, .h3, .h4 { font-family: var(--font-head); letter-spacing: -0.01em; }
+a { color: var(--maroon); }
+a:hover { color: var(--maroon-dark); }
+.text-maroon { color: var(--maroon); }
+.skip-link { position: absolute; left: 1rem; top: 1rem; z-index: 2000; background: #fff; padding: .5rem 1rem; }
+
+.topbar { background: var(--maroon-dark); color: #f5e9e3; font-size: .85rem; padding: .35rem 0; }
+.site-header { background: #fff; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1020; }
+.brand { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+.brand-mark { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--maroon); color: var(--gold-soft); font-family: var(--font-head); font-weight: 700; border: 2px solid var(--gold); }
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-name { font-family: var(--font-head); font-weight: 700; color: var(--maroon); font-size: 1.15rem; }
+.brand-ml { font-size: .8rem; color: var(--muted); }
+.navbar .nav-link { color: var(--ink); font-weight: 500; }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: var(--maroon); }
+.navbar-toggler { border: 0; font-size: 1.6rem; color: var(--maroon); }
+.dropdown-item.active, .dropdown-item:active { background: var(--maroon); }
+
+.btn-gold { background: var(--gold); color: var(--ink); border: 0; font-weight: 600; }
+.btn-gold:hover { background: #e3ad3d; color: var(--ink); }
+.btn-maroon { background: var(--maroon); color: #fff; border: 0; }
+.btn-maroon:hover { background: var(--maroon-dark); color: #fff; }
+
+.hero { color: #fff; padding: 4.5rem 0 4rem;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(211,155,42,.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
+    radial-gradient(ellipse at 85% 0%, rgba(211,155,42,.35), transparent 55%),
+    linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%); }
+.eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; color: var(--gold-soft); font-weight: 600; }
+.hero-title { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 700; }
+.hero-sub { font-size: 1.15rem; opacity: .9; max-width: 38rem; }
+.hero-card { background: rgba(255,255,255,.96); color: var(--ink); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,.2); border-top: 4px solid var(--gold); }
+.notice-list li { padding: .55rem 0; border-bottom: 1px dashed var(--line); }
+.notice-list li:last-child { border-bottom: 0; }
+.notice-list a { text-decoration: none; color: var(--ink); }
+.notice-list a:hover { color: var(--maroon); }
+
+.badge-type { text-transform: capitalize; font-weight: 600; font-size: .7rem; }
+.type-news { background: #e9f0fb; color: #1d4f91; }
+.type-event { background: #fdf0d8; color: #8a5a00; }
+.type-notice { background: #f7e3e6; color: var(--maroon); }
+
+.stats { margin-top: -1.75rem; position: relative; }
+.stat { background: #fff; border-radius: var(--radius); padding: 1.1rem; display: flex; flex-direction: column; box-shadow: 0 6px 18px rgba(74,18,28,.08); text-decoration: none; color: var(--ink); height: 100%; }
+.stat-n { font-family: var(--font-head); font-size: 1.9rem; color: var(--maroon); font-weight: 700; }
+.stat-l { color: var(--muted); font-size: .9rem; }
+.stat-link:hover { outline: 2px solid var(--gold); }
+
+.section { padding: 3.5rem 0; }
+.section-alt { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.25rem; gap: 1rem; }
+.section-head h2 { margin: 0; }
+.section-head a { text-decoration: none; font-weight: 500; white-space: nowrap; }
+
+.tile { display: flex; flex-direction: column; gap: .25rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; text-decoration: none; color: var(--ink); height: 100%; transition: transform .15s, border-color .15s; }
+.tile:hover { transform: translateY(-2px); border-color: var(--gold); color: var(--ink); }
+.tile-icon { font-size: 1.5rem; color: var(--gold); }
+.tile-title { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; color: var(--maroon); }
+.tile-sub { font-size: .85rem; color: var(--muted); }
+
+.news-card { background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 1rem; }
+.news-card a { text-decoration: none; color: var(--ink); }
+.news-card a:hover { color: var(--maroon); }
+.event { display: flex; gap: 1rem; align-items: center; padding: .75rem 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
+.event-date { min-width: 58px; text-align: center; background: var(--maroon); color: #fff; border-radius: 10px; padding: .35rem; display: flex; flex-direction: column; }
+.event-day { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; line-height: 1; }
+.event-mon { font-size: .75rem; text-transform: uppercase; color: var(--gold-soft); }
+
+.page-head { background: linear-gradient(135deg, var(--maroon), var(--maroon-dark)); color: #fff; padding: 2.5rem 0 2rem; }
+.page-head .breadcrumb { margin-bottom: .5rem; font-size: .85rem; }
+.page-head .breadcrumb a { color: var(--gold-soft); }
+.page-head .breadcrumb-item.active, .page-head .breadcrumb-item + .breadcrumb-item::before { color: #e9d6d0; }
+.page-head .lead { opacity: .9; }
+
+.card-plain { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+.chip { background: var(--gold-soft); color: var(--ink); border-radius: 999px; padding: .2rem .75rem; font-size: .85rem; }
+.cms-body { max-width: 52rem; font-size: 1.05rem; line-height: 1.7; }
+.placeholder-note { background: #fff8e8; border: 1px dashed var(--gold); border-radius: 10px; padding: 1rem 1.25rem; }
+.map { width: 100%; min-height: 320px; border: 0; border-radius: var(--radius); }
+
+.site-footer { background: var(--ink); color: #d9d1c9; padding: 3rem 0 1.5rem; margin-top: 0; }
+.site-footer a { color: var(--gold-soft); text-decoration: none; }
+.footer-brand { font-family: var(--font-head); font-size: 1.35rem; color: #fff; font-weight: 700; }
+.footer-h { font-family: var(--font-body); font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); }
+.footer-bottom { border-top: 1px solid #3a322d; margin-top: 2rem; padding-top: 1rem; font-size: .85rem; }
+
+@media (max-width: 575.98px) {
+  .hero { padding: 3rem 0 3.5rem; }
+  .brand-mark { width: 40px; height: 40px; }
+  .brand-name { font-size: 1rem; }
+}

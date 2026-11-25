@@ -1,0 +1,41 @@
+<div class="topbar">
+  <div class="container d-flex flex-wrap justify-content-between gap-2">
+    <span><i class="bi bi-geo-alt"></i> <%= site.address %></span>
+    <span class="d-none d-md-inline"><i class="bi bi-telephone"></i> <%= site.phone %> &nbsp;·&nbsp; <i class="bi bi-envelope"></i> <%= site.email %></span>
+  </div>
+</div>
+<header class="site-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand brand" href="/">
+        <span class="brand-mark" aria-hidden="true">SS</span>
+        <span class="brand-text">
+          <span class="brand-name"><%= site.college_name %></span>
+          <span class="brand-ml" lang="ml"><%= site.college_name_ml %></span>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Open menu">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <% menu.forEach(function (m, i) { %>
+            <% if (m.items) { %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav<%= i %>" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= m.label %></a>
+                <ul class="dropdown-menu" aria-labelledby="nav<%= i %>">
+                  <% m.items.forEach(function (it) { %>
+                    <li><a class="dropdown-item<%= path === it.url ? ' active' : '' %>" href="<%= it.url %>"><%= it.title %></a></li>
+                  <% }) %>
+                </ul>
+              </li>
+            <% } else { %>
+              <li class="nav-item"><a class="nav-link<%= path === m.url ? ' active' : '' %>" href="<%= m.url %>"><%= m.label %></a></li>
+            <% } %>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main id="main">
