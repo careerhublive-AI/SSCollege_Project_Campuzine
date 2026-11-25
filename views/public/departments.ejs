@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <div class="card-plain h-100">
         <h2 class="h4"><a href="/departments/<%= d.slug %>"><%= d.name %></a></h2>
-        <p><%= d.description %></p>
+        <p><% const intro = (d.description || '').split('\n')[0]; %><%= intro.length > 220 ? intro.slice(0, 220).replace(/\s+\S*$/, '') + '…' : intro %></p>
         <p class="small mb-2"><strong>Head of Department:</strong> <%= d.hod_name || 'To be added' %></p>
         <% if (progs.length) { %><div class="d-flex flex-wrap gap-2"><% progs.forEach(function (p) { %><span class="chip"><%= p.name %></span><% }) %></div><% } %>
       </div>

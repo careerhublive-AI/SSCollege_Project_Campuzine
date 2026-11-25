@@ -26,6 +26,8 @@ router.get('/departments', wrap(async (req, res) => {
   res.render('public/departments', { title: 'Departments', departments, programmes });
 }));
 
+// The sample "Computer Science" department became the real "Computer Applications" one.
+router.get('/departments/computer-science', (req, res) => res.redirect(301, '/departments/computer-applications'));
 router.get('/departments/:slug', wrap(async (req, res, next) => {
   const department = await db('departments').where({ slug: req.params.slug, status: 'active' }).first();
   if (!department) return next();

@@ -24,6 +24,7 @@ a:hover { color: var(--maroon-dark); }
 .site-header { background: #fff; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 1020; }
 .brand { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
 .brand-mark { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--maroon); color: var(--gold-soft); font-family: var(--font-head); font-weight: 700; border: 2px solid var(--gold); }
+.brand-logo { width: 52px; height: 52px; object-fit: contain; flex: none; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-name { font-family: var(--font-head); font-weight: 700; color: var(--maroon); font-size: 1.15rem; }
 .brand-ml { font-size: .8rem; color: var(--muted); }
@@ -42,6 +43,10 @@ a:hover { color: var(--maroon-dark); }
     radial-gradient(circle at 15% 20%, rgba(211,155,42,.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
     radial-gradient(ellipse at 85% 0%, rgba(211,155,42,.35), transparent 55%),
     linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%); }
+.hero-photo { position: relative; overflow: hidden; isolation: isolate; }
+.hero-photo .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.hero-photo::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(74,16,28,.95) 0%, rgba(107,29,42,.88) 50%, rgba(107,29,42,.6) 100%); }
+.faculty-table th { font-weight: 600; width: 45%; }
 .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; color: var(--gold-soft); font-weight: 600; }
 .hero-title { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 700; }
 .hero-sub { font-size: 1.15rem; opacity: .9; max-width: 38rem; }
@@ -95,6 +100,7 @@ a:hover { color: var(--maroon-dark); }
 .map { width: 100%; min-height: 320px; border: 0; border-radius: var(--radius); }
 
 .site-footer { background: var(--ink); color: #d9d1c9; padding: 3rem 0 1.5rem; margin-top: 0; }
+.site-footer p, .site-footer li { overflow-wrap: anywhere; }
 .site-footer a { color: var(--gold-soft); text-decoration: none; }
 .footer-brand { font-family: var(--font-head); font-size: 1.35rem; color: #fff; font-weight: 700; }
 .footer-h { font-family: var(--font-body); font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); }
@@ -102,6 +108,6 @@ a:hover { color: var(--maroon-dark); }
 
 @media (max-width: 575.98px) {
   .hero { padding: 3rem 0 3.5rem; }
-  .brand-mark { width: 40px; height: 40px; }
+  .brand-mark, .brand-logo { width: 40px; height: 40px; }
   .brand-name { font-size: 1rem; }
 }

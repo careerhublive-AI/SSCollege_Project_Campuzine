@@ -11,6 +11,7 @@
     <div class="col-md-4"><label class="form-label" for="hod_name">Head of department</label><input class="form-control" id="hod_name" name="hod_name" value="<%= d.hod_name || '' %>"></div>
     <div class="col-md-4"><label class="form-label" for="email">Email</label><input class="form-control" id="email" name="email" value="<%= d.email || '' %>"></div>
     <div class="col-md-4"><label class="form-label" for="phone">Phone</label><input class="form-control" id="phone" name="phone" value="<%= d.phone || '' %>"></div>
+    <div class="col-12"><label class="form-label" for="faculty_text">Faculty</label><textarea class="form-control" id="faculty_text" name="faculty_text" rows="5" placeholder="Name | Designation"><%= d.faculty_text || '' %></textarea><div class="form-text">One person per line, as <em>Name | Designation</em>.</div></div>
     <div class="col-md-3"><label class="form-label" for="sort_order">Order</label><input class="form-control" id="sort_order" name="sort_order" type="number" value="<%= d.sort_order || 0 %>"></div>
     <div class="col-md-3"><label class="form-label" for="status">Status</label><select class="form-select" id="status" name="status"><option value="active">Active</option><option value="archived" <%= d.status === 'archived' ? 'selected' : '' %>>Archived</option></select></div>
   </div>

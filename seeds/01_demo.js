@@ -245,4 +245,7 @@ exports.seed = async function (knex) {
       ]);
     }
   }
+
+  // Replace the sample content with the real content from the college's old website.
+  await require('../src/content/oldSiteImport').apply(knex);
 };

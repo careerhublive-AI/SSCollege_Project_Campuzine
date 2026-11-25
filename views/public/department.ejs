@@ -1,8 +1,9 @@
-<%- include('../partials/head', { description: department.description }) %>
+<%- include('../partials/head', { description: (department.description || '').split('\n')[0].slice(0, 160) }) %>
 <%- include('../partials/header') %>
-<%- include('../partials/pagehead', { crumbs: [{ title: 'Departments', url: '/departments' }], lead: department.description }) %>
+<%- include('../partials/pagehead', { crumbs: [{ title: 'Departments', url: '/departments' }], lead: null }) %>
 <section class="section"><div class="container"><div class="row g-4 g-lg-5">
   <div class="col-lg-8">
+    <% if (department.description) { %><div class="prose mb-4"><% department.description.split(/\n\s*\n/).forEach(function (para) { %><p><%= para.trim() %></p><% }) %></div><% } %>
     <h2 class="h4">Programmes</h2>
     <% if (!programmes.length) { %><p>No programmes listed yet.</p><% } %>
     <div class="list-group mb-4">
@@ -13,6 +14,13 @@
     <h2 class="h4">Department news and activities</h2>
     <% if (!news.length) { %><p>No department news yet.</p><% } %>
     <ul><% news.forEach(function (n) { %><li><a href="/news/<%= n.slug %>"><%= n.title %></a></li><% }) %></ul>
+    <% const faculty = (department.faculty_text || '').split('\n').map(function (l) { return l.split('|').map(function (x) { return x.trim(); }); }).filter(function (r) { return r[0]; }); %>
+    <% if (faculty.length) { %>
+      <h2 class="h4 mt-4">Faculty</h2>
+      <div class="table-responsive"><table class="table faculty-table"><tbody>
+        <% faculty.forEach(function (r) { %><tr><th scope="row"><%= r[0] %></th><td><%= r[1] || '' %></td></tr><% }) %>
+      </tbody></table></div>
+    <% } %>
   </div>
   <div class="col-lg-4">
     <div class="card-plain">

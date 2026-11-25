@@ -1,10 +1,11 @@
 <%- include('../partials/head') %>
 <%- include('../partials/header') %>
-<section class="hero">
+<% const b = banners[0]; const heroImg = b && /^\/img\/[\w\/.-]+$/.test(b.image_url || '') ? b.image_url : null; %>
+<section class="hero<%= heroImg ? ' hero-photo' : '' %>">
+  <% if (heroImg) { %><img class="hero-bg" src="<%= heroImg %>" alt="" aria-hidden="true"><% } %>
   <div class="container">
     <div class="row align-items-center g-4 g-lg-5">
       <div class="col-lg-7">
-        <% const b = banners[0]; %>
         <p class="eyebrow"><%= site.affiliation %></p>
         <h1 class="hero-title"><%= b ? b.title : site.college_name %></h1>
         <% if (b && b.subtitle) { %><p class="hero-sub"><%= b.subtitle %></p><% } else if (site.tagline) { %><p class="hero-sub"><%= site.tagline %></p><% } %>

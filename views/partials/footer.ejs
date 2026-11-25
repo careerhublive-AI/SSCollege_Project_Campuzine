@@ -16,11 +16,13 @@
           <li><a href="/mandatory-disclosures">Mandatory Disclosures</a></li>
         </ul>
       </div>
-      <div class="col-6 col-md-4">
+      <div class="col-12 col-sm-6 col-md-4">
         <h2 class="footer-h">Contact</h2>
         <p class="mb-1"><%= site.address %></p>
         <p class="mb-1">Phone: <%= site.phone %></p>
-        <p class="mb-0">Email: <%= site.email %></p>
+        <p class="mb-1">Email: <%= site.email %></p>
+        <% if (site.admission_phone) { %><p class="mb-1">Admissions: <%= site.admission_phone %></p><% } %>
+        <% if (/^https:\/\/(www\.)?facebook\.com\//.test(site.facebook_url || '')) { %><p class="mb-0"><a href="<%= site.facebook_url %>" rel="noopener" target="_blank"><i class="bi bi-facebook"></i> Facebook</a></p><% } %>
       </div>
     </div>
     <div class="footer-bottom">© <%= new Date().getFullYear() %> <%= site.college_name %> · <a href="/admin">Staff login</a></div>

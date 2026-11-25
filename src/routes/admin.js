@@ -199,7 +199,7 @@ router.get('/banners', requirePermission('cms.banners'), wrap(async (req, res) =
 }));
 router.post('/banners', requirePermission('cms.banners'), wrap(async (req, res) => {
   const data = { title: str(req.body.title, 200) || 'Welcome', subtitle: str(req.body.subtitle, 300), link_url: str(req.body.link_url, 300),
-    link_label: str(req.body.link_label, 60), status: 'published', updated_at: sqlNow() };
+    link_label: str(req.body.link_label, 60), image_url: str(req.body.image_url, 255), status: 'published', updated_at: sqlNow() };
   const banner = await db('banners').orderBy('sort_order').first();
   if (banner) await db('banners').where({ id: banner.id }).update(data); else await db('banners').insert({ ...data, sort_order: 1 });
   await audit.log(req, 'update', 'banner', banner && banner.id, data);
@@ -224,7 +224,7 @@ router.get('/departments/:id/edit', requirePermission('institution.departments')
 router.post('/departments{/:id}', requirePermission('institution.departments'), wrap(async (req, res) => {
   const id = intOrNull(req.params.id);
   const data = { name: str(req.body.name, 150), short_name: str(req.body.short_name, 30), slug: slugify(req.body.slug || req.body.short_name || req.body.name),
-    description: str(req.body.description, 5000), hod_name: str(req.body.hod_name, 150), email: str(req.body.email, 150), phone: str(req.body.phone, 40),
+    description: str(req.body.description, 5000), hod_name: str(req.body.hod_name, 150), faculty_text: str(req.body.faculty_text, 5000), email: str(req.body.email, 150), phone: str(req.body.phone, 40),
     sort_order: intOrNull(req.body.sort_order) || 0, status: req.body.status === 'archived' ? 'archived' : 'active', updated_at: sqlNow() };
   const clash = await db('departments').where({ slug: data.slug }).whereNot({ id: id || 0 }).first();
   if (!data.name || clash) return res.status(400).render('admin/department-form', { title: 'Department', d: { ...data, id }, error: !data.name ? 'Please enter a name.' : 'That web address is already used by another department.' });
@@ -261,8 +261,8 @@ router.post('/programmes{/:id}', requirePermission('institution.departments'), w
 // ---------- College information ----------
 const COLLEGE_FIELDS = [
   ['college_name', 'College name (English)'], ['college_name_ml', 'College name (Malayalam)'], ['tagline', 'Tagline'],
-  ['affiliation', 'Affiliation'], ['address', 'Address'], ['phone', 'Phone'], ['email', 'Email'], ['office_hours', 'Office hours'],
-  ['map_url', 'Google Maps embed link (https://www.google.com/maps/embed?...)'],
+  ['affiliation', 'Affiliation'], ['address', 'Address'], ['phone', 'Phone'], ['admission_phone', 'Admission enquiry phone numbers'], ['email', 'Email'], ['office_hours', 'Office hours'],
+  ['facebook_url', 'Facebook page link'], ['map_url', 'Google Maps embed link (https://www.google.com/maps/embed?...)'],
 ];
 router.get('/settings', requirePermission('settings.manage'), wrap(async (req, res) =>
   res.render('admin/settings', { title: 'College information', values: await settingsService.getAll('settings'), fields: COLLEGE_FIELDS })));

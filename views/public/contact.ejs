@@ -5,8 +5,10 @@
   <div class="col-md-6"><div class="card-plain h-100">
     <h2 class="h5"><i class="bi bi-geo-alt"></i> Address</h2><p><%= site.address %></p>
     <h2 class="h5"><i class="bi bi-telephone"></i> Phone</h2><p><%= site.phone %></p>
-    <h2 class="h5"><i class="bi bi-envelope"></i> Email</h2><p><%= site.email %></p>
-    <h2 class="h5"><i class="bi bi-clock"></i> Office hours</h2><p class="mb-0"><%= site.office_hours %></p>
+    <% if (site.admission_phone) { %><h2 class="h5"><i class="bi bi-telephone-inbound"></i> Admission enquiries</h2><p><%= site.admission_phone %></p><% } %>
+    <h2 class="h5"><i class="bi bi-envelope"></i> Email</h2><p<%= site.office_hours || site.facebook_url ? '' : ' class="mb-0"' %>><%= site.email %></p>
+    <% if (site.office_hours) { %><h2 class="h5"><i class="bi bi-clock"></i> Office hours</h2><p><%= site.office_hours %></p><% } %>
+    <% if (/^https:\/\/(www\.)?facebook\.com\//.test(site.facebook_url || '')) { %><h2 class="h5"><i class="bi bi-facebook"></i> Facebook</h2><p class="mb-0"><a href="<%= site.facebook_url %>" rel="noopener" target="_blank">Follow the college on Facebook</a></p><% } %>
   </div></div>
   <div class="col-md-6">
     <% if (site.map_url && /^https:\/\/www\.google\.com\/maps\/embed/.test(site.map_url)) { %>

@@ -8,6 +8,7 @@
     <div class="col-md-6"><label class="form-label" for="link_url">Button link</label><input class="form-control" id="link_url" name="link_url" value="<%= banner.link_url || '' %>" placeholder="/about"></div>
     <div class="col-md-6"><label class="form-label" for="link_label">Button text</label><input class="form-control" id="link_label" name="link_label" maxlength="60" value="<%= banner.link_label || '' %>"></div>
   </div>
+  <div class="mb-3"><label class="form-label" for="image_url">Background photo</label><input class="form-control" id="image_url" name="image_url" maxlength="255" value="<%= banner.image_url || '' %>" placeholder="/img/hero-convocation.jpg"><div class="form-text">A photo in the website's /img folder. Leave empty for the plain maroon background.</div></div>
   <button class="btn btn-maroon">Save banner</button>
 </form>
 <%- include('partials/bottom') %>
