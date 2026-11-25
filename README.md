@@ -6,7 +6,7 @@ A working management demo of the new college website, built to the project bluep
 - **Sabari Phase 1**, the bilingual (English + Malayalam) virtual assistant: quick-action topics, typed questions, keyword and synonym matching over published FAQs only, a "no verified answer" fallback with *Contact College* and *Submit Your Question*, and no paid AI.
 - **Admin panel** with role-based access: pages, news/events/notices, homepage banner, departments and programmes, college information, users and approvals, audit log, and Sabari management (dashboard, FAQ management, topics and quick replies, unanswered questions with Convert to FAQ, chat history, languages and settings, and a test console).
 
-Stack: Node.js 20+ · Express · EJS + Bootstrap 5 · MySQL (utf8mb4) through Knex. SQLite works for quick local runs.
+Stack: Node.js 22.12+ · Express · EJS + Bootstrap 5 · MySQL (utf8mb4) through Knex. SQLite works for quick local runs.
 
 ## Run locally
 
@@ -23,7 +23,7 @@ On the first start the app creates the tables and loads starter content. It prin
 
 1. **Create a MySQL database** in hPanel → Databases. Note the database name, user and password.
 2. **Create the Node.js web app** in hPanel (the exact menu names may differ slightly). Either connect the GitHub repository or upload the project zip, which must not include `node_modules`.
-   - Framework: **Express**. Node.js version: **22.x**. Entry file: **server.js**. Install command: `npm install`. Start command: `npm start`.
+   - Framework: **Express**. Node.js version: **22.x or 24.x** (not 20.x: the HTML sanitiser needs 22.12+). Entry file: **server.js**. Install command: `npm install`. Start command: `npm start`.
 3. **Set the environment variables** listed in `.env.example`: `NODE_ENV=production`, a long random `SESSION_SECRET`, `DB_CLIENT=mysql` with the database details, and `ADMIN_EMAIL` / `ADMIN_PASSWORD` for the first Super Admin.
 4. **Deploy.** On the first start the app creates every table and loads the starter content. Nothing else needs to run.
 5. Open `https://<your-domain>/admin`, sign in, and change the password under *My account*.
