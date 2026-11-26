@@ -1,0 +1,5 @@
+<%- include('../partials/head', { description: page.summary }) %>
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { lead: page.summary, crumbs: page.menu_group === 'clubs' ? [{ title: 'Clubs, Cells and Forums', url: '/committees' }] : [] }) %>
+<section class="section"><div class="container"><div class="cms-body"><%- page.body %></div></div></section>
+<%- include('../partials/footer') %>

@@ -1,0 +1,21 @@
+<%- include('partials/top') %>
+<div class="page-title"><h1><%= title %></h1><a class="btn btn-outline-secondary" href="/admin/pages">Back</a></div>
+<% if (error) { %><div class="alert alert-danger"><%= error %></div><% } %>
+<form method="post" action="/admin/pages<%= page.id ? '/' + page.id : '' %>" class="card-a">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="row g-3">
+    <div class="col-md-8"><label class="form-label" for="title">Title</label><input class="form-control" id="title" name="title" required maxlength="200" value="<%= page.title || '' %>"></div>
+    <div class="col-md-4"><label class="form-label" for="slug">Web address</label><div class="input-group"><span class="input-group-text">/</span><input class="form-control" id="slug" name="slug" value="<%= page.slug || '' %>" placeholder="made from the title"></div></div>
+    <div class="col-12"><label class="form-label" for="summary">Summary <span class="text-muted small">(shown under the title and in search results)</span></label><input class="form-control" id="summary" name="summary" maxlength="500" value="<%= page.summary || '' %>"></div>
+    <div class="col-12"><label class="form-label" for="body">Content <span class="text-muted small">(HTML: &lt;p&gt;, &lt;h2&gt;, &lt;ul&gt;, &lt;table&gt;, links and images are allowed; scripts are removed)</span></label>
+      <textarea class="form-control code" id="body" name="body" rows="14"><%= page.body || '' %></textarea></div>
+    <div class="col-md-4"><label class="form-label" for="menu_group">Menu</label><select class="form-select" id="menu_group" name="menu_group">
+      <% const current = page.menu_group === 'clubs' ? 'clubs' : (page.show_in_menu === false || page.show_in_menu === 0 ? 'none' : (page.menu_group || '')); MENU_GROUPS.forEach(function (m) { %><option value="<%= m[0] %>" <%= current === m[0] ? 'selected' : '' %>><%= m[1] %></option><% }) %>
+    </select></div>
+    <div class="col-md-4"><label class="form-label" for="menu_order">Menu order</label><input class="form-control" id="menu_order" name="menu_order" type="number" value="<%= page.menu_order || 0 %>"></div>
+    <div class="col-md-4"><label class="form-label" for="status">Status</label><select class="form-select" id="status" name="status">
+      <option value="draft" <%= page.status !== 'published' ? 'selected' : '' %>>Draft (hidden)</option><option value="published" <%= page.status === 'published' ? 'selected' : '' %>>Published</option></select></div>
+  </div>
+  <button class="btn btn-maroon mt-4">Save page</button>
+</form>
+<%- include('partials/bottom') %>
